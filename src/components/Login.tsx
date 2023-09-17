@@ -6,12 +6,18 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useAuth } from "../hooks/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const { loginWithGoogle, logout } = useAuth();
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
-    loginWithGoogle();
+    const loginSuccess = await loginWithGoogle();
+
+    if (loginSuccess) {
+      navigate("/dashboard");
+    }
   };
 
   const handleLogout = () => {

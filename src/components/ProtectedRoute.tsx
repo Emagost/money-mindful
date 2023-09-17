@@ -1,12 +1,13 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/AuthProvider";
 
-export function ProtectedRoute({ children }: { children: any }) {
-  const { user, loading } = useAuth();
+const ProtectedRoute = ({ children }: { children: any }) => {
+  const { user } = useAuth();
+  console.log("user", user);
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+  return children;
+};
 
-  if (loading) return <h1>Loading</h1>;
-
-  if (!user) return <Navigate to="/login" />;
-
-  return <>{children}</>;
-}
+export default ProtectedRoute;

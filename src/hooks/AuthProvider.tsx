@@ -26,13 +26,14 @@ export const useAuth = () => {
   return context;
 };
 
-export function AuthProvider({ children }: { children: any }) {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   const loginWithGoogle = () => {
     const googleProvider = new GoogleAuthProvider();
     return signInWithPopup(auth, googleProvider);
+    // await auth.setPersistence(Persistence.SESSION);
   };
 
   const logout = () => signOut(auth);
