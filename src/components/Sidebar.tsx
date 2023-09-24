@@ -13,6 +13,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { MainListItems, secondaryListItems } from "./Dashboard/listItems";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import LogoutButton from "./Dashboard/LogoutButton";
 
 const drawerWidth: number = 240;
 
@@ -107,11 +108,12 @@ const Sidebar = ({ changeTheme }: { changeTheme: () => void }) => {
           >
             Dashboard
           </Typography>
-          <IconButton color="inherit">
+          <IconButton color="inherit" style={{ marginRight: "10px" }}>
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
             </Badge>
           </IconButton>
+          <LogoutButton />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

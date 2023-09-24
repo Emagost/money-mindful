@@ -12,6 +12,10 @@ import Deposits from "./Deposits";
 import Orders from "./Orders";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../../hooks/AuthProvider";
+import SpentManagement from "./SpentManagement";
+import CalendarPage from "./CalendarPage";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 
 function Copyright(props: any) {
   return (
@@ -32,8 +36,8 @@ function Copyright(props: any) {
 }
 
 const DashboardHome = () => {
-  const { user } = useAuth();
-  if (!user) {
+  const { user, loading } = useAuth();
+  if (!loading && !user) {
     return <Navigate to="/login" />;
   }
 
@@ -54,6 +58,11 @@ const DashboardHome = () => {
       >
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Box display="flex" alignContent="center" justifyContent="left">
+            <SpentManagement add={true} icon={<AddIcon />} />
+            <SpentManagement add={false} icon={<DeleteIcon />} />
+          </Box>
+          <CalendarPage />
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>

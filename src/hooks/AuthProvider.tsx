@@ -1,12 +1,16 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, memo, useContext, useEffect, useState } from "react";
 import {
   signOut,
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
   User,
+  setPersistence,
+  inMemoryPersistence,
+  browserLocalPersistence,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { app, auth, getDBInstance } from "../firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const authContext = createContext<{
   user: User | null;
@@ -26,14 +30,58 @@ export const useAuth = () => {
   return context;
 };
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const db = getDBInstance();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const loginWithGoogle = () => {
+  const loginWithGoogle = async () => {
+    setLoading(true);
     const googleProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth, googleProvider);
-    // await auth.setPersistence(Persistence.SESSION);
+    const userResult = await setPersistence(auth, browserLocalPersistence).then(
+      () => signInWithPopup(auth, googleProvider)
+    );
+
+    try {
+      setUser(userResult.user);
+
+      const { displayName, email, uid, photoURL, metadata } = userResult.user;
+      const { lastSignInTime, creationTime } = metadata;
+
+      const userRef = doc(db, "users", uid);
+      const userDoc = await getDoc(userRef);
+
+      if (userDoc.exists()) {
+        await setDoc(
+          userRef,
+          {
+            metadata: {
+              lastSignInTime,
+            },
+          },
+          { merge: true }
+        );
+      } else {
+        await setDoc(userRef, {
+          uid,
+          name: displayName,
+          email,
+          photoURL,
+          metadata: {
+            lastSignInTime,
+            creationTime,
+          },
+          roles: ["user"],
+        });
+      }
+
+      setLoading(false);
+      return true;
+    } catch (error) {
+      console.error("Error logging in:", error);
+      setLoading(false);
+      return false;
+    }
   };
 
   const logout = () => signOut(auth);
@@ -58,4 +106,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       {children}
     </authContext.Provider>
   );
-}
+};
+
+export default AuthProvider;

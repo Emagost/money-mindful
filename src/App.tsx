@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { AuthProvider } from "./hooks/AuthProvider";
+import AuthProvider from "./hooks/AuthProvider";
 import Dashboard from "./components/Dashboard";
-import { Box, CssBaseline } from "@mui/material";
+import { Box, CssBaseline, useMediaQuery } from "@mui/material";
 import Login from "./components/Login";
 import Sidebar from "./components/Sidebar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -10,7 +10,10 @@ import useStyles from "./styles";
 
 const App = () => {
   const { classes } = useStyles();
-  const [mode, setMode] = useState<"light" | "dark">("light");
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [mode, setMode] = useState<"light" | "dark">(
+    prefersDarkMode ? "dark" : "light"
+  );
   const colorMode = useCallback(
     () => setMode((prevMode) => (prevMode === "light" ? "dark" : "light")),
     []
