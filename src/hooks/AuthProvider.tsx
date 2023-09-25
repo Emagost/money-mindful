@@ -1,4 +1,4 @@
-import { createContext, memo, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {
   signOut,
   onAuthStateChanged,
@@ -6,10 +6,9 @@ import {
   signInWithPopup,
   User,
   setPersistence,
-  inMemoryPersistence,
   browserLocalPersistence,
 } from "firebase/auth";
-import { app, auth, getDBInstance } from "../firebase";
+import { auth, getDBInstance } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const authContext = createContext<{
