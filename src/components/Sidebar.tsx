@@ -10,7 +10,7 @@ import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { MainListItems, secondaryListItems } from "./Dashboard/listItems";
+import { MainListItems } from "./Dashboard/listItems";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import LogoutButton from "./Dashboard/LogoutButton";
@@ -133,7 +133,7 @@ const Sidebar = ({ changeTheme }: { changeTheme: () => void }) => {
         <List component="nav">
           <MainListItems changeTheme={changeTheme} />
           <Divider sx={{ my: 1 }} />
-          {secondaryListItems}
+          {/* {secondaryListItems} */}
         </List>
       </Drawer>
     </>

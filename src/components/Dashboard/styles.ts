@@ -13,6 +13,18 @@ const useStyles = makeStyles()((theme: any) => ({
     alignContent: "center",
     display: "flex",
   },
+  mainContainer: {
+    backgroundColor:
+      theme.palette.mode === "light"
+        ? theme.palette.grey[100]
+        : theme.palette.grey[900],
+    flexGrow: 1,
+    height: "100vh",
+    overflow: "auto",
+  },
+  padding20px: {
+    padding: "20px",
+  },
   calenderBg: {
     width: "100%",
     height: "100%",
@@ -38,6 +50,13 @@ const useStyles = makeStyles()((theme: any) => ({
   },
   margin15px: {
     marginBottom: "18px",
+  },
+  w100: {
+    width: "100%",
+  },
+  flexW100: {
+    display: "flex",
+    width: "100%",
   },
 }));
 

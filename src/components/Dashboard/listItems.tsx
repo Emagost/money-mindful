@@ -3,11 +3,12 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PeopleIcon from "@mui/icons-material/People";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import LayersIcon from "@mui/icons-material/Layers";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+// import DashboardIcon from "@mui/icons-material/Dashboard";
+// import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+// import PeopleIcon from "@mui/icons-material/People";
+// import BarChartIcon from "@mui/icons-material/BarChart";
+// import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useTheme } from "@mui/material/styles";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
@@ -20,11 +21,11 @@ export const MainListItems = ({ changeTheme }: { changeTheme: () => void }) => {
     <>
       <ListItemButton>
         <ListItemIcon>
-          <DashboardIcon />
+          <CalendarMonthIcon />
         </ListItemIcon>
-        <ListItemText primary="Dashboard" />
+        <ListItemText primary="Calendar" />
       </ListItemButton>
-      <ListItemButton>
+      {/* <ListItemButton>
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
@@ -47,7 +48,7 @@ export const MainListItems = ({ changeTheme }: { changeTheme: () => void }) => {
           <LayersIcon />
         </ListItemIcon>
         <ListItemText primary="Integrations" />
-      </ListItemButton>
+      </ListItemButton> */}
       <ListItemButton>
         <ListItemIcon onClick={changeTheme}>
           {theme.palette.mode === "dark" ? (
